@@ -1,0 +1,987 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TWO 26 Creative Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&family=Montserrat:wght@400;600;800&display=swap"
+    />
+    <link rel="stylesheet" href="hark.css" />
+    <link rel="stylesheet" href="hark-hero.css" />
+    <style>
+      :root {
+        --x-cream: #F6E8DF; --x-outer: #EFDDD3; --x-orange: #FF4D00; --x-black: #111111;
+        --x-white: #FFFFFF; --x-line: #E8D3C6; --x-grey: #8A8A8A;
+        --x-display: "Anton", Impact, sans-serif; --x-head: "Archivo", sans-serif;
+        --x-body: "Inter", system-ui, sans-serif; --x-hand: "Caveat", cursive;
+        --x-pad: clamp(18px, 4vw, 56px);
+        --x-fs: clamp(34px, calc(9vw + 4px), 150px);
+        --x-ease: cubic-bezier(.2, .8, .2, 1);
+      }
+      body { background: var(--x-outer); color: var(--x-black); font: 400 16px/1.5 var(--x-body); }
+      .page.x-frame { max-width: none; padding: 16px; display: block; }
+      .x-site { max-width: 1440px; margin: 0 auto; background: var(--x-cream); border: 1px solid var(--x-white); border-radius: 24px; overflow: clip; position: relative; }
+      .x-site a { text-decoration: none; }
+      .x-site img { max-width: 100%; display: block; }
+      .x-ic { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+      .x-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+      /* header */
+      .x-header { position: sticky; top: 0; z-index: 50; background: var(--x-cream); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; padding: 16px var(--x-pad); }
+      .x-header__left, .x-header__right { display: flex; align-items: center; gap: 10px; }
+      .x-header__right { justify-content: flex-end; gap: 18px; }
+      .x-logo { font: 700 28px/1 var(--x-head); letter-spacing: -0.02em; color: var(--x-orange); border-radius: 8px; white-space: nowrap; }
+      .x-hours { font: 500 12px/1.35 var(--x-body); color: var(--x-black); text-align: right; }
+      .x-pill { display: inline-flex; align-items: center; min-height: 40px; padding: 0 20px; border-radius: 999px; background: var(--x-white); color: var(--x-black); font: 500 14px var(--x-body); transition: transform .25s var(--x-ease), background .25s; }
+      .x-pill:hover { transform: translateY(-2px); }
+      .x-pill.is-active { background: var(--x-black); color: var(--x-white); }
+      .x-talk { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; padding: 6px 6px 6px 20px; border: 0; border-radius: 999px; background: var(--x-black); color: var(--x-white); font: 600 14px var(--x-body); cursor: pointer; white-space: nowrap; transition: transform .25s var(--x-ease); }
+      .x-talk__dot { width: 32px; height: 32px; border-radius: 50%; background: var(--x-orange); display: grid; place-items: center; transition: transform .25s var(--x-ease); }
+      .x-talk__dot .x-ic { width: 16px; height: 16px; color: var(--x-white); stroke-width: 2.5; transition: transform .25s var(--x-ease); }
+      .x-talk:hover { transform: translateY(-2px); }
+      .x-talk:hover .x-talk__dot { transform: scale(1.1); }
+      .x-talk:hover .x-talk__dot .x-ic { transform: translateX(3px); }
+      .x-burger { width: 44px; height: 44px; border: 0; background: transparent; display: none; place-items: center; cursor: pointer; color: var(--x-black); border-radius: 50%; }
+      .x-burger span, .x-burger span::before, .x-burger span::after { display: block; width: 24px; height: 2px; background: currentColor; border-radius: 2px; position: relative; }
+      .x-burger span::before, .x-burger span::after { content: ""; position: absolute; left: 0; }
+      .x-burger span::before { top: -7px; } .x-burger span::after { top: 7px; }
+      body[data-view="contact"] .x-header .x-burger { display: grid; }
+      .x-header--work { display: none; grid-template-columns: auto 1fr auto; }
+      body[data-view="work"] .x-header--main { display: none; }
+      body[data-view="work"] .x-header--work { display: grid; }
+      .x-header--work .x-burger { display: grid; }
+      .x-tlinks { display: flex; gap: 28px; padding-left: 28px; }
+      .x-tlinks a { font: 500 14px var(--x-body); color: var(--x-black); padding: 6px 0; border-bottom: 2px solid transparent; }
+      .x-tlinks a:hover { color: var(--x-orange); }
+      .x-tlinks a.is-active { color: var(--x-orange); border-color: var(--x-orange); }
+
+      /* mobile menu */
+      .x-menu { position: fixed; inset: 0; z-index: 100; background: var(--x-cream); display: flex; flex-direction: column; padding: 18px var(--x-pad) 40px; opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s; }
+      .x-menu.is-open { opacity: 1; visibility: visible; }
+      .x-menu__top { display: flex; justify-content: space-between; align-items: center; }
+      .x-menu__close { width: 44px; height: 44px; border: 0; background: var(--x-black); color: var(--x-white); border-radius: 50%; font-size: 22px; cursor: pointer; }
+      .x-menu nav { display: flex; flex-direction: column; gap: 6px; margin: auto 0; }
+      .x-menu nav a { font: 400 clamp(52px, 14vw, 110px)/.95 var(--x-display); text-transform: uppercase; color: var(--x-orange); }
+      .x-menu nav a:hover { color: var(--x-black); }
+      .x-menu .x-hours { text-align: left; margin-bottom: 16px; }
+
+      /* views */
+      .x-view { display: none; opacity: 0; transition: opacity .35s ease; }
+      .x-view.is-shown { display: block; }
+      .x-view.is-visible { opacity: 1; }
+
+      /* type */
+      .x-display { font-family: var(--x-display); font-weight: 400; text-transform: uppercase; color: var(--x-orange); line-height: .88; letter-spacing: -0.01em; margin: 0; }
+      .x-h2 { font: 800 clamp(28px, 3.2vw, 44px)/1.02 var(--x-head); letter-spacing: -0.03em; color: var(--x-orange); margin: 0; text-wrap: balance; }
+      .x-orange { color: var(--x-orange); }
+      .x-eyebrow { font: 700 12px/1 var(--x-body); letter-spacing: .14em; text-transform: uppercase; color: var(--x-orange); margin: 0 0 16px; }
+      .x-label { display: inline-flex; align-items: center; gap: 10px; font: 600 12px/1 var(--x-body); letter-spacing: .14em; text-transform: uppercase; color: var(--x-black); margin: 0; }
+      .x-label::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--x-orange); }
+      .x-ln { display: block; overflow: hidden; padding: .06em 0 0; margin-top: -.06em; }
+      .x-ln > span { display: inline-block; transform: translateY(105%); transition: transform 1s var(--x-ease); transition-delay: var(--d, 0s); }
+      .is-in .x-ln > span { transform: none; }
+      .x-rv { opacity: 0; transform: translateY(32px); transition: opacity .8s ease, transform .8s var(--x-ease); }
+      .x-rv.is-vis { opacity: 1; transform: none; }
+      .x-tag { position: absolute; z-index: 3; display: inline-block; padding: .55em 1.2em; border-radius: 999px; background: var(--x-black); color: var(--x-white); font: 600 clamp(12px, 1.3vw, 19px)/1 var(--x-body); letter-spacing: 0; text-transform: none; white-space: nowrap; opacity: 0; transition: opacity .6s ease .7s, transform .6s var(--x-ease) .7s; }
+      .is-in .x-tag { opacity: 1; }
+
+      /* hero */
+      .x-hero { position: relative; padding: clamp(28px, 5vw, 72px) var(--x-pad) 0; }
+      .x-hero__inner { position: relative; z-index: 2; padding-left: 4%; }
+      .x-hero h1 { display: inline-block; position: relative; font-size: var(--x-fs); }
+      .x-hero .x-ln--1 { text-align: right; }
+      .x-tag--studio { top: .05em; right: -.35em; transform: rotate(-6deg); }
+      .x-tag--indie { top: 1.72em; left: -.25em; transform: rotate(-8deg); }
+      .x-hero__foot { position: relative; display: flex; align-items: flex-end; gap: clamp(16px, 2.5vw, 36px); margin-top: calc(var(--x-fs) * -1.15); padding-left: calc(var(--x-fs) * 1.95); }
+      .x-hero__art { width: clamp(220px, 30vw, 440px); flex: none; position: relative; z-index: 2; }
+      .x-hero__copy { color: var(--x-orange); font-size: 16px; max-width: 260px; padding-bottom: 12%; }
+      .x-swirl { position: absolute; right: 0; top: 18%; width: clamp(110px, 17vw, 250px); z-index: 1; pointer-events: none; }
+      .x-curl { position: absolute; right: 0; top: 0; width: clamp(60px, 7vw, 110px); pointer-events: none; }
+      .x-swirl path, .x-curl path, .x-rib, .x-squig path { fill: none; stroke: var(--x-orange); stroke-linecap: round; stroke-linejoin: round; }
+
+      /* ribbon + story */
+      .x-flow { position: relative; }
+      .x-ribbon { position: absolute; left: 0; width: 100%; height: auto; z-index: 0; pointer-events: none; overflow: visible; }
+      .x-rib { stroke-dasharray: 1; stroke-dashoffset: 1; }
+      .x-story { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(24px, 5vw, 80px); align-items: center; padding: 0 var(--x-pad); }
+      .x-story__img { max-width: 560px; width: 100%; position: relative; z-index: 2; }
+      .x-story p.x-body { color: var(--x-orange); margin-top: 24px; max-width: 520px; }
+      .x-home-flow { padding-top: clamp(220px, 26vw, 380px); }
+      .x-home-flow .x-ribbon { top: -40px; }
+
+      /* sections */
+      .x-sec { padding: clamp(56px, 7vw, 100px) var(--x-pad) 0; position: relative; z-index: 1; }
+      .x-sec__row { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 28px; }
+      .x-more { color: var(--x-orange); font: 600 14px var(--x-body); display: inline-flex; align-items: center; gap: 6px; min-height: 44px; }
+      .x-more .x-ic { width: 16px; height: 16px; transition: transform .25s var(--x-ease); }
+      .x-more:hover .x-ic { transform: translateX(3px); }
+      .x-grid4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+      .x-grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+
+      .x-wcard { position: relative; display: block; aspect-ratio: 4 / 5; border-radius: 12px; overflow: hidden; border: 1px solid var(--x-line); background: var(--x-white); color: var(--x-black); transition: transform .35s var(--x-ease); }
+      .x-wcard:hover { transform: translateY(-6px); }
+      .x-wcard img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .x-wcard img.x-contain { object-fit: contain; padding: 10% 10% 28%; }
+      .x-wcard--orange { background: var(--x-orange); border-color: var(--x-orange); }
+      .x-wcard--light { color: var(--x-white); }
+      .x-wcard__txt { position: absolute; left: 20px; right: 72px; bottom: 18px; }
+      .x-wcard__txt h3 { font: 700 20px/1.1 var(--x-head); letter-spacing: -0.02em; margin: 0 0 4px; }
+      .x-wcard__txt p { font: 500 13px var(--x-body); opacity: .85; }
+      .x-arrow { position: absolute; right: 16px; bottom: 16px; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--x-black); color: var(--x-white); transition: background .25s, color .25s, transform .25s var(--x-ease); }
+      .x-arrow .x-ic { width: 18px; height: 18px; }
+      .x-wcard--light .x-arrow { background: var(--x-white); color: var(--x-black); }
+      .x-wcard:hover .x-arrow { background: var(--x-orange); color: var(--x-white); transform: rotate(-45deg); }
+      .x-wcard--orange:hover .x-arrow { background: var(--x-black); }
+
+      .x-card { background: var(--x-white); border: 1px solid var(--x-line); border-radius: 12px; transition: transform .35s var(--x-ease); }
+      .x-svc { display: flex; gap: 16px; align-items: center; padding: 22px; }
+      .x-svc:hover, .x-proc:hover { transform: translateY(-4px); }
+      .x-svc .x-ic { width: 48px; height: 48px; }
+      .x-svc h3 { font: 700 17px/1.2 var(--x-head); margin: 0 0 4px; letter-spacing: -0.01em; }
+      .x-svc p { font-size: 14px; line-height: 1.4; color: #444; }
+      .x-proc { position: relative; padding: 28px 88px 28px 28px; background: var(--x-white); }
+      .x-proc__num { font: 400 52px/1 var(--x-display); color: var(--x-orange); margin-bottom: 14px; }
+      .x-proc h3 { font: 800 22px/1.1 var(--x-head); letter-spacing: -0.02em; margin: 0 0 8px; }
+      .x-proc p { font-size: 15px; color: #444; }
+      .x-proc .x-ic { position: absolute; right: 28px; top: 32px; width: 40px; height: 40px; }
+
+      /* CTA */
+      .x-cta { margin: clamp(56px, 7vw, 100px) var(--x-pad) 0; background: var(--x-orange); border-radius: 24px; padding: clamp(32px, 5vw, 64px); display: grid; grid-template-columns: 1.4fr 1fr .75fr; gap: 28px; align-items: center; position: relative; z-index: 1; }
+      .x-cta .x-display { color: var(--x-cream); font-size: clamp(42px, 5.4vw, 86px); margin-bottom: 28px; }
+      .x-cta__img { width: 100%; max-width: 380px; justify-self: center; }
+      .x-cta__copy { color: var(--x-white); font-size: 15px; }
+
+      /* footer */
+      .x-foot { margin-top: clamp(56px, 7vw, 100px); background: var(--x-black); color: var(--x-white); padding: 48px var(--x-pad) 28px; }
+      .x-foot__top { display: grid; grid-template-columns: 1fr auto auto; gap: 40px; align-items: center; padding-bottom: 36px; border-bottom: 1px solid #2a2a2a; }
+      .x-foot__links { display: flex; flex-wrap: wrap; gap: 28px; }
+      .x-foot__links a, .x-foot__mail { color: var(--x-white); font: 500 15px var(--x-body); }
+      .x-foot__links a:hover, .x-foot__mail:hover { color: var(--x-orange); }
+      .x-social { display: flex; gap: 6px; align-items: center; }
+      .x-social a { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; color: inherit; font: 700 17px/1 var(--x-body); transition: color .2s, transform .2s; }
+      .x-social a:hover { color: var(--x-black); transform: translateY(-2px); }
+      .x-foot .x-social a:hover { color: var(--x-orange); }
+      .x-social .x-ic { width: 22px; height: 22px; }
+      .x-foot__bottom { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 22px; color: var(--x-grey); font-size: 13px; }
+
+      /* studio */
+      .x-hero--studio { padding-top: clamp(40px, 7vw, 110px); }
+      .x-hero--studio .x-hero__art { width: clamp(240px, 36vw, 540px); }
+      .x-hero--studio .x-hero__foot { margin-top: calc(var(--x-fs) * -1.25); padding-left: calc(var(--x-fs) * 1.35); }
+      .x-stagger p + p { margin-top: 40px; margin-left: 48px; }
+      .x-studio-flow { padding-top: clamp(520px, 62vw, 860px); }
+      .x-studio-flow .x-ribbon { top: -60px; }
+
+      /* project */
+      [class*="burst"] { color: var(--x-orange); fill: none; stroke-linecap: round; }
+      .x-phero { display: grid; grid-template-columns: 1fr 1.05fr; gap: 40px; padding: 28px 0 0 var(--x-pad); min-height: 620px; }
+      .x-phero__copy { padding-bottom: 48px; }
+      .x-backlink { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-bottom: 24px; font: 500 14px var(--x-body); color: var(--x-black); transition: color .2s; }
+      .x-backlink .x-ic { width: 18px; height: 18px; transition: transform .25s var(--x-ease); }
+      .x-backlink:hover { color: var(--x-orange); } .x-backlink:hover .x-ic { transform: translateX(-3px); }
+      .x-phero__title { font-size: clamp(64px, 9.5vw, 150px); margin-bottom: 20px; }
+      .x-phero__sub { font: 800 clamp(18px, 1.8vw, 24px)/1.05 var(--x-head); letter-spacing: -0.03em; text-transform: uppercase; color: var(--x-orange); margin-bottom: 18px; }
+      .x-phero__body { max-width: 520px; }
+      .x-meta { display: flex; margin: 32px 0 0; padding-top: 22px; border-top: 1px solid var(--x-line); }
+      .x-meta > div { display: grid; grid-template-columns: auto 1fr; column-gap: 10px; align-items: center; padding: 0 20px; border-left: 1px solid var(--x-line); }
+      .x-meta > div:first-child { padding-left: 0; border-left: 0; }
+      .x-meta .x-ic { grid-row: span 2; width: 22px; height: 22px; }
+      .x-meta dt { font: 600 11px var(--x-body); letter-spacing: .12em; text-transform: uppercase; color: #6b6b6b; }
+      .x-meta dd { margin: 0; font: 600 14px/1.35 var(--x-body); }
+      .x-phero__art { position: relative; min-height: 420px; }
+      .x-phero__art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: left center; border-radius: 24px 0 0 24px; }
+      .x-overview { display: grid; grid-template-columns: 1fr 1.15fr .95fr; gap: clamp(24px, 3.5vw, 48px); padding: clamp(56px, 7vw, 96px) var(--x-pad) 0; align-items: start; }
+      .x-overview__img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 12px; }
+      .x-overview__p { margin-top: 16px; font-size: 15px; color: #333; }
+      .x-deliv { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 14px; }
+      .x-deliv li { display: flex; gap: 12px; align-items: center; }
+      .x-deliv__dot { width: 40px; height: 40px; border-radius: 50%; background: var(--x-orange); color: var(--x-white); display: grid; place-items: center; flex: none; }
+      .x-deliv__dot .x-ic { width: 20px; height: 20px; }
+      .x-deliv b { display: block; font: 700 15px var(--x-head); }
+      .x-deliv span { font-size: 13px; color: #555; }
+      .x-brand { border-left: 1px solid var(--x-orange); padding-left: clamp(20px, 3vw, 40px); }
+      .x-brand .x-eyebrow { margin-top: 30px; } .x-brand .x-eyebrow:first-child { margin-top: 0; }
+      .x-brand__id { display: flex; gap: 18px; align-items: center; }
+      .x-appicon { position: relative; width: 110px; flex: none; }
+      .x-appicon > svg:first-child { width: 110px; height: 110px; display: block; }
+      .x-appicon__burst { position: absolute; top: -18px; right: -22px; width: 34px; height: 34px; transform: scaleY(-1); }
+      .x-brand__name { font: 800 22px/1.1 var(--x-head); letter-spacing: -0.02em; }
+      .x-brand__kw { font: 600 11px/1.4 var(--x-body); letter-spacing: .16em; text-transform: uppercase; color: #555; margin-top: 4px; }
+      .x-swatches { list-style: none; padding: 0; margin: 22px 0 0; display: flex; gap: 12px; }
+      .x-swatches li { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--x-line); }
+      .x-swatches span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+      .x-type { display: flex; gap: 16px; align-items: center; }
+      .x-type__aa { font: 800 56px/1 "Montserrat", sans-serif; }
+      .x-type b { display: block; font: 700 18px "Montserrat", sans-serif; }
+      .x-type span:not(.x-type__aa) { font-size: 13px; color: #555; }
+      .x-vibe { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+      .x-vibe li { border: 1.5px solid var(--x-orange); color: var(--x-orange); border-radius: 999px; padding: 7px 14px; font: 600 13px var(--x-body); }
+      .x-related { margin: clamp(56px, 7vw, 96px) var(--x-pad) 0; background: var(--x-white); border: 1px solid var(--x-line); border-radius: 16px; padding: clamp(18px, 2.5vw, 28px); }
+      .x-related .x-sec__row { margin-bottom: 16px; }
+      .x-rcard { display: flex; gap: 14px; align-items: center; padding: 12px; border: 1px solid var(--x-line); border-radius: 12px; background: var(--x-cream); color: var(--x-black); transition: transform .3s var(--x-ease); }
+      .x-rcard:hover { transform: translateY(-4px); }
+      .x-rcard__thumb { width: 84px; height: 84px; border-radius: 10px; overflow: hidden; flex: none; }
+      .x-rcard__thumb img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
+      .x-rcard__thumb img.x-cover { object-fit: cover; padding: 0; }
+      .x-rcard b { display: block; font: 700 16px/1.15 var(--x-head); letter-spacing: -0.01em; }
+      .x-rcard small { display: block; font-size: 13px; color: #555; margin-top: 2px; }
+      .x-rcard em { font-style: normal; display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; color: var(--x-orange); font: 600 13px var(--x-body); }
+      .x-rcard em .x-ic { width: 14px; height: 14px; transition: transform .25s var(--x-ease); }
+      .x-rcard:hover em .x-ic { transform: translateX(3px); }
+      .x-pfoot { margin-top: clamp(56px, 7vw, 96px); background: var(--x-black); color: var(--x-white); padding: 24px var(--x-pad); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px 28px; }
+      .x-pfoot__brand { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; font-size: 14px; }
+      .x-pfoot__nav { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+      .x-pfoot__nav a { display: inline-flex; align-items: center; min-height: 44px; color: var(--x-white); font: 500 14px var(--x-body); transition: color .2s; }
+      .x-pfoot__nav a:hover { color: var(--x-orange); }
+      .x-pfoot__nav .x-ic { width: 18px; height: 18px; }
+      .x-pfoot__nav a.x-more { color: var(--x-orange); }
+      .x-pfoot__div { width: 1px; height: 24px; background: #3a3a3a; }
+
+      /* contact */
+      .x-contact { display: grid; grid-template-columns: 1.15fr 1fr .8fr; gap: 24px; padding: clamp(24px, 4vw, 48px) var(--x-pad) 0; align-items: start; }
+      .x-git { position: relative; padding-top: 34px; }
+      .x-git__title { font-size: clamp(76px, 10vw, 168px); display: inline-block; transform: rotate(-4deg); transform-origin: left bottom; }
+      .x-bubble { position: absolute; top: 0; right: 0; width: clamp(130px, 13vw, 190px); aspect-ratio: 1.25; background: var(--x-black); border-radius: 58% 42% 52% 48% / 55% 50% 50% 45%; display: grid; place-items: center; padding: 18px; transform: rotate(6deg); z-index: 2; }
+      .x-bubble::after { content: ""; position: absolute; bottom: -10px; left: 22px; width: 30px; height: 30px; background: var(--x-black); clip-path: polygon(0 100%, 35% 0, 100% 25%); }
+      .x-bubble p { font: 700 clamp(19px, 1.9vw, 27px)/1 var(--x-hand); color: var(--x-white); text-align: center; }
+      .x-git__burst { position: absolute; top: -6px; right: clamp(130px, 13vw, 190px); width: 40px; height: 40px; transform: scaleX(-1) rotate(-20deg); }
+      .x-contact__lead { font: 800 clamp(20px, 1.8vw, 24px)/1.15 var(--x-head); letter-spacing: -0.03em; color: var(--x-orange); margin-top: 32px; max-width: 480px; }
+      .x-contact__p { color: var(--x-orange); margin-top: 14px; font-size: 15px; max-width: 460px; }
+      .x-contact__art { position: relative; margin-top: 24px; }
+      .x-contact__art img { position: relative; z-index: 1; width: 82%; margin: 0 auto; }
+      .x-squig { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+      .x-formcard { padding: clamp(22px, 2.5vw, 36px); }
+      .x-formcard__title { font-size: clamp(36px, 3.4vw, 52px); margin: 18px 0 12px; }
+      .x-formcard__p { color: var(--x-orange); font-size: 15px; }
+      .x-form { display: grid; gap: 16px; margin-top: 24px; }
+      .x-field label { display: block; font: 600 13px var(--x-body); margin-bottom: 6px; }
+      .x-field input, .x-field select, .x-field textarea { width: 100%; min-height: 46px; padding: 12px 14px; border: 1px solid var(--x-black); border-radius: 8px; background: var(--x-white); color: var(--x-black); font: 400 15px var(--x-body); }
+      .x-field textarea { resize: vertical; min-height: 120px; }
+      .x-field :focus { outline: 2px solid var(--x-orange); outline-offset: 1px; }
+      .x-field [aria-invalid="true"] { border-color: var(--x-orange); }
+      .x-err { color: var(--x-orange); font: 500 13px var(--x-body); margin-top: 6px; }
+      .x-err:empty { display: none; }
+      .x-send { position: relative; width: 100%; min-height: 56px; border: 0; border-radius: 999px; background: var(--x-orange); color: var(--x-white); font: 600 16px var(--x-body); cursor: pointer; display: flex; align-items: center; justify-content: center; margin-top: 4px; transition: transform .25s var(--x-ease); }
+      .x-send__dot { position: absolute; right: 10px; width: 36px; height: 36px; border-radius: 50%; background: var(--x-white); color: var(--x-orange); display: grid; place-items: center; transition: transform .25s var(--x-ease); }
+      .x-send__dot .x-ic { width: 18px; height: 18px; stroke-width: 2.5; }
+      .x-send:hover { transform: translateY(-2px); } .x-send:hover .x-send__dot { transform: translateX(3px); }
+      .x-thanks { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 32px 0 8px; outline: none; }
+      .x-thanks[hidden] { display: none; }
+      .x-thanks__icon { width: 56px; height: 56px; border-radius: 50%; background: var(--x-orange); color: var(--x-white); display: grid; place-items: center; }
+      .x-thanks p { font: 800 24px/1.1 var(--x-head); letter-spacing: -0.03em; color: var(--x-orange); }
+      .x-contact__side { display: grid; gap: 16px; }
+      .x-info { padding: 24px; }
+      .x-info ul { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 16px; font-size: 14px; line-height: 1.5; }
+      .x-info li { display: flex; gap: 12px; }
+      .x-info .x-ic { width: 22px; height: 22px; }
+      .x-info a { color: var(--x-black); text-decoration: underline; text-underline-offset: 3px; }
+      .x-info a:hover { color: var(--x-orange); }
+      .x-info small { display: inline-block; margin-top: 6px; font-size: 13px; color: #555; }
+      .x-soon { position: relative; display: flex; align-items: center; gap: 10px; padding: 8px 0 0 6px; }
+      .x-soon__m { width: 54px; height: 54px; }
+      .x-soon p { font: 700 30px/1 var(--x-hand); color: var(--x-orange); transform: rotate(-4deg); }
+      .x-soon__burst { width: 30px; height: 30px; align-self: flex-start; }
+      .x-strip { margin: clamp(40px, 5vw, 64px) var(--x-pad) 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 28px 0; }
+      .x-strip > div { padding: 4px 28px; border-left: 1px solid var(--x-line); }
+      .x-strip > div:first-child { border-left: 0; }
+      .x-strip .x-ic { width: 32px; height: 32px; margin-bottom: 14px; }
+      .x-strip h3 { font: 800 14px/1.2 var(--x-head); letter-spacing: .04em; text-transform: uppercase; margin: 0 0 6px; }
+      .x-strip p { font-size: 14px; color: #444; }
+      .x-band { margin: clamp(40px, 5vw, 64px) var(--x-pad) var(--x-pad); background: var(--x-orange); border-radius: 24px; padding: clamp(28px, 4vw, 48px) clamp(28px, 4vw, 64px); display: flex; align-items: center; flex-wrap: wrap; gap: 20px clamp(20px, 3vw, 40px); position: relative; overflow: hidden; }
+      .x-band::before, .x-band::after { content: ""; position: absolute; bottom: 0; width: 56px; height: 56px; background: var(--x-cream); }
+      .x-band::before { left: 0; border-top-right-radius: 56px; }
+      .x-band::after { right: 0; border-top-left-radius: 56px; }
+      .x-band__logo { color: var(--x-white); font-size: clamp(64px, 8vw, 128px); line-height: .9; }
+      .x-band__div { width: 2px; align-self: stretch; background: var(--x-white); opacity: .7; }
+      .x-band__tag { color: var(--x-white); font: 600 16px/1.35 var(--x-body); }
+      .x-band__right { margin-left: auto; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; position: relative; z-index: 1; }
+      .x-band__talk { position: relative; }
+      .x-band__burst { position: absolute; left: -34px; top: -22px; width: 34px; height: 34px; color: var(--x-black); transform: scaleY(-1) rotate(90deg); }
+      .x-band .x-social a { color: var(--x-white); }
+
+      @media (max-width: 1080px) {
+        .x-contact { grid-template-columns: 1fr 1fr; }
+        .x-contact__intro { grid-column: 1 / -1; }
+        .x-contact__art { max-width: 560px; }
+        .x-overview { grid-template-columns: 1fr 1fr; }
+        .x-brand { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--x-orange); padding: 28px 0 0; }
+        .x-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 28px; }
+        .x-strip > div:nth-child(3) { border-left: 0; }
+        .x-grid4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .x-grid3 { grid-template-columns: minmax(0, 1fr); }
+        .x-cta { grid-template-columns: 1fr 1fr; }
+        .x-cta__copy { grid-column: 1 / -1; max-width: 460px; }
+        .x-foot__top { grid-template-columns: 1fr; gap: 24px; }
+      }
+      @media (max-width: 860px) {
+        .page.x-frame { padding: 0; }
+        .x-site { border-radius: 0; border: 0; }
+        .x-header { grid-template-columns: auto 1fr auto; }
+        .x-header .x-header__left, .x-header .x-hours, .x-header .x-tlinks, .x-header .x-talk { display: none; }
+        .x-header .x-logo { order: -1; }
+        .x-header .x-burger { display: grid; }
+        .x-hero__inner { padding-left: 0; }
+        .x-hero__foot { flex-direction: column; align-items: flex-start; margin-top: 12px; padding-left: 12%; }
+        .x-hero__art { width: 72%; }
+        .x-hero__copy { padding: 0; }
+        .x-story { grid-template-columns: 1fr; }
+        .x-home-flow { padding-top: 180px; }
+        .x-cta { grid-template-columns: 1fr; }
+        .x-hero--studio .x-hero__foot { margin-top: 12px; padding-left: 12%; }
+        .x-hero--studio .x-hero__art { width: 80%; }
+        .x-stagger p + p { margin: 14px 0 0; }
+        .x-studio-flow { padding-top: 340px; }
+        .x-phero { grid-template-columns: 1fr; padding-right: var(--x-pad); min-height: 0; gap: 8px; }
+        .x-phero__art { min-height: 0; aspect-ratio: 4 / 3; }
+        .x-phero__art img { border-radius: 16px; }
+        .x-meta { flex-direction: column; gap: 14px; }
+        .x-meta > div { padding: 0; border-left: 0; }
+        .x-contact, .x-overview { grid-template-columns: 1fr; }
+        .x-band__div { display: none; }
+        .x-band__right { margin-left: 0; width: 100%; }
+      }
+      @media (max-width: 560px) {
+        .x-strip { grid-template-columns: 1fr; }
+        .x-strip > div { border-left: 0; border-top: 1px solid var(--x-line); padding-top: 24px; }
+        .x-strip > div:first-child { border-top: 0; padding-top: 4px; }
+        .x-grid4 { grid-template-columns: minmax(0, 1fr); }
+        .x-wcard { aspect-ratio: 5 / 4; }
+      }
+      /* contrast + tap target adjustments */
+      :root { --x-orange-hd: #E84400; --x-orange-ink: #C23800; }
+      .x-header .x-logo, .x-menu .x-logo, .x-display, .x-h2, .x-proc__num, .x-contact__lead, .x-soon p, .x-menu nav a { color: var(--x-orange-hd); }
+      .x-cta .x-display, .x-band__logo { color: var(--x-white); }
+      .x-eyebrow, .x-hero__copy, .x-story p.x-body, .x-sec .x-more, .x-related .x-more, .x-formcard__p, .x-contact__p,
+      .x-phero__sub, .x-overview .x-h2 + p, .x-vibe li, .x-rcard em, .x-err, .x-tlinks a.is-active, .x-tlinks a:hover, .x-backlink:hover { color: var(--x-orange-ink); }
+      .x-vibe li { border-color: var(--x-orange-ink); }
+      .x-wcard--orange .x-wcard__txt p, .x-wcard--dark-txt .x-wcard__txt { color: var(--x-black); }
+      .x-wcard--orange .x-wcard__txt p, .x-wcard--dark-txt .x-wcard__txt p { opacity: 1; }
+      .x-cta__copy { color: var(--x-black); }
+      .x-logo { display: inline-flex; align-items: center; min-height: 44px; }
+      .x-foot__links a, .x-foot__mail { display: inline-flex; align-items: center; min-height: 44px; }
+      .x-foot__links { gap: 8px 20px; }
+      .x-foot__links a { min-width: 44px; justify-content: center; }
+      .x-menu { display: none; }
+      .x-menu.is-open { display: flex; }
+      @media (prefers-reduced-motion: reduce) {
+        .x-view, .x-ln > span, .x-tag, .x-rv { transition: none !important; }
+        .x-ln > span { transform: none; } .x-tag { opacity: 1; } .x-rv { opacity: 1; transform: none; }
+        .x-rib { stroke-dashoffset: 0; }
+      }
+    </style>
+  </head>
+  <body data-view="home">
+    <div class="page x-frame" id="top">
+      <svg class="x-sprite" aria-hidden="true" focusable="false">
+        <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+        <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+        <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+        <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20l4-1L19 8l-3-3L5 16l-1 4zM14 7l3 3"/></symbol>
+        <symbol id="i-plane" viewBox="0 0 24 24"><path d="M21 3L3 10.5l7 2.5 2.5 7L21 3zM10 13l5-5"/></symbol>
+        <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/></symbol>
+        <symbol id="i-uiux" viewBox="0 0 24 24"><rect x="2.5" y="3.5" width="11" height="14" rx="2.5"/><rect x="10.5" y="6.5" width="11" height="14" rx="2.5"/></symbol>
+        <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+        <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v4h4M9 12h6M9 16h6"/></symbol>
+        <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.5-6 8-6s7 1.5 8 6"/></symbol>
+        <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.5-7-12a7 7 0 0114 0c0 5.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></symbol>
+        <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5L12 13l8.5-6.5"/></symbol>
+        <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 006 6L16 13l5 2v4a2 2 0 01-2 2A16 16 0 013 5a2 2 0 012-2z"/></symbol>
+        <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+        <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0012 3z"/></symbol>
+        <symbol id="i-mega" viewBox="0 0 24 24"><path d="M3 10v4h3l8 4V6l-8 4H3zM18 9a4 4 0 010 6M7 14l1 5h3l-1-4"/></symbol>
+        <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8-10-10z"/><circle cx="7.5" cy="8.5" r="1.5"/></symbol>
+        <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></symbol>
+        <symbol id="i-dribbble" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3.5 9.5c5 .5 10-.5 14-4M6 19c3-5 8-7 14.5-5.5M8.5 3.7c3 3.5 6 9.5 7 17"/></symbol>
+        <symbol id="i-eyes" viewBox="0 0 24 24"><ellipse cx="7.5" cy="12" rx="5" ry="7.5" fill="#fff" stroke="#111"/><ellipse cx="16.5" cy="12" rx="5" ry="7.5" fill="#fff" stroke="#111"/><ellipse cx="9" cy="13.5" rx="2.6" ry="3.6" fill="#111" stroke="none"/><ellipse cx="18" cy="13.5" rx="2.6" ry="3.6" fill="#111" stroke="none"/></symbol>
+        <symbol id="i-m" viewBox="0 0 24 24"><path d="M2.5 19.5C3.5 13 5 6.5 7 5s3 9 5 9 3-10 5.2-10S20.5 12 21.5 19.5" stroke="#FF4D00" stroke-width="2.8"/></symbol>
+        <symbol id="i-burst" viewBox="0 0 40 40"><path d="M8 30L2 36M14 24l-2-9M20 30l9-2" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
+        <symbol id="i-dots" viewBox="0 0 24 24"><g fill="currentColor" stroke="none"><circle cx="5" cy="5" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="19" r="2"/></g></symbol>
+        <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+      </svg>
+
+      <div class="x-site">
+        <header class="x-header x-header--main">
+          <nav class="x-header__left" aria-label="Main">
+            <a class="x-pill" href="#home/work">Work</a>
+            <a class="x-pill" href="#studio" data-nav-for="studio">About us</a>
+          </nav>
+          <a class="x-logo" href="#home" aria-label="TWO 26, home">TWO 26</a>
+          <div class="x-header__right">
+            <p class="x-hours">Monday–Friday<br />10:00 – 17:00</p>
+            <a class="x-talk" href="#contact">Let's Talk <span class="x-talk__dot"><svg class="x-ic"><use href="#i-arrow"/></svg></span></a>
+            <button class="x-burger" type="button" aria-label="Open menu" aria-expanded="false" data-menu-open><span></span></button>
+          </div>
+        </header>
+        <header class="x-header x-header--work">
+          <div style="display:flex;align-items:center">
+            <a class="x-logo" href="#home" aria-label="TWO 26, home">TWO 26</a>
+            <nav class="x-tlinks" aria-label="Main">
+              <a class="is-active" href="#home/work" aria-current="page">Work</a>
+              <a href="#studio">About us</a>
+              <a href="#home/services">Services</a>
+              <a href="#contact">Contact</a>
+            </nav>
+          </div>
+          <span></span>
+          <div class="x-header__right">
+            <a class="x-talk" href="#contact">Let's Talk <span class="x-talk__dot"><svg class="x-ic"><use href="#i-arrow"/></svg></span></a>
+            <button class="x-burger" type="button" aria-label="Open menu" aria-expanded="false" data-menu-open><span></span></button>
+          </div>
+        </header>
+
+        <main>
+          <!-- ================= HOME ================= -->
+          <div class="x-view" data-view="home" id="view-home">
+            <section class="x-hero">
+              <svg class="x-curl" viewBox="0 0 120 110" aria-hidden="true"><path d="M120 6C70 4 40 30 48 62c6 26 40 28 44 6 3-16-14-24-24-14" stroke-width="12"/></svg>
+              <svg class="x-swirl" viewBox="0 0 300 500" aria-hidden="true"><path d="M310 40C170 30 60 120 70 250c10 120 160 150 205 55 32-70-30-130-90-100-48 24-30 95 20 85" stroke-width="26"/></svg>
+              <div class="x-hero__inner">
+                <h1 class="x-display">
+                  <span class="x-ln x-ln--1"><span style="--d:.05s">The committed,</span></span>
+                  <span class="x-ln"><span style="--d:.18s">Agile and creative</span></span>
+                  <span class="x-ln"><span style="--d:.31s">Duo</span></span>
+                  <span class="x-tag x-tag--studio">design studio</span>
+                  <span class="x-tag x-tag--indie">Independent</span>
+                </h1>
+                <div class="x-hero__foot">
+                  <img class="x-hero__art" src="hero-duo.webp" alt="Line drawing of two designers standing back to back" />
+                  <p class="x-hero__copy">We partner with people that believe better design is one of the most crucial element towards progress.</p>
+                </div>
+              </div>
+            </section>
+
+            <div class="x-flow x-home-flow">
+              <svg class="x-ribbon" viewBox="0 0 1200 900" aria-hidden="true"><path class="x-rib" pathLength="1" stroke-width="40" d="M560 0C560 170 980 150 960 330 940 500 420 380 300 560 230 660 260 760 330 820"/></svg>
+              <section class="x-story x-rv">
+                <img class="x-story__img" src="chairs.webp" alt="Three orange and white office chairs" />
+                <div>
+                  <p class="x-eyebrow">Our story</p>
+                  <h2 class="x-h2">We do what we do because we want to help brands with a genuine mission to succeed.</h2>
+                  <p class="x-body">Staying small was never an accident. It's a deliberate choice. It means we stay closely involved in every project, and we maintain a level of care that gets harder to hold onto the bigger a studio gets.</p>
+                </div>
+              </section>
+            </div>
+
+            <section class="x-sec" id="x-work">
+              <div class="x-sec__row x-rv">
+                <p class="x-label">Selected work</p>
+                <a class="x-more" href="#work/brew-crew">View all work <svg class="x-ic"><use href="#i-arrow"/></svg></a>
+              </div>
+              <div class="x-grid4 x-rv">
+                <a class="x-wcard x-wcard--orange x-wcard--light" href="#work/brew-crew">
+                  <img class="x-contain" src="card-brewcrew.webp" alt="A hand holding a Brew Crew coffee bag" />
+                  <div class="x-wcard__txt"><h3>Brew Crew</h3><p>Branding · 2024</p></div>
+                  <span class="x-arrow" aria-hidden="true"><svg class="x-ic"><use href="#i-arrow"/></svg></span>
+                </a>
+                <a class="x-wcard" href="#work/brew-crew">
+                  <img class="x-contain" src="card-momo.webp" alt="Phone showing the Momo website with orange brush strokes" />
+                  <div class="x-wcard__txt"><h3>Momo</h3><p>Web Design · 2024</p></div>
+                  <span class="x-arrow" aria-hidden="true"><svg class="x-ic"><use href="#i-arrow"/></svg></span>
+                </a>
+                <a class="x-wcard x-wcard--orange x-wcard--dark-txt" href="#work/brew-crew">
+                  <img src="card-playground.webp" alt="Illustration of a girl with headphones on orange" />
+                  <div class="x-wcard__txt"><h3>Playground</h3><p>Illustration · 2023</p></div>
+                  <span class="x-arrow" aria-hidden="true"><svg class="x-ic"><use href="#i-arrow"/></svg></span>
+                </a>
+                <a class="x-wcard" href="#work/brew-crew">
+                  <img src="card-studiogrid.webp" alt="Two phones showing an orange Studio Grid poster" />
+                  <div class="x-wcard__txt"><h3>Studio Grid</h3><p>Branding · 2024</p></div>
+                  <span class="x-arrow" aria-hidden="true"><svg class="x-ic"><use href="#i-arrow"/></svg></span>
+                </a>
+              </div>
+            </section>
+
+            <section class="x-sec" id="x-services">
+              <div class="x-sec__row x-rv"><p class="x-label">Our services</p></div>
+              <div class="x-grid4 x-rv">
+                <div class="x-card x-svc"><svg class="x-ic"><use href="#i-eyes"/></svg><div><h3>Branding</h3><p>Distinctive brands that make an impact.</p></div></div>
+                <div class="x-card x-svc"><svg class="x-ic"><use href="#i-laptop"/></svg><div><h3>Web Design</h3><p>Modern websites built for what's next.</p></div></div>
+                <div class="x-card x-svc"><svg class="x-ic"><use href="#i-uiux"/></svg><div><h3>UI/UX</h3><p>Thoughtful experiences people love to use.</p></div></div>
+                <div class="x-card x-svc"><svg class="x-ic"><use href="#i-m"/></svg><div><h3>Motion &amp; Illustration</h3><p>Playful visuals that bring ideas to life.</p></div></div>
+              </div>
+            </section>
+
+            <!--PROCESS-->
+            <section class="x-sec">
+              <div class="x-sec__row x-rv"><p class="x-label">Our process</p></div>
+              <div class="x-grid3 x-rv">
+                <div class="x-card x-proc"><p class="x-proc__num">01</p><h3>Discover</h3><p>We listen, ask the right questions and uncover what really matters.</p><svg class="x-ic"><use href="#i-search"/></svg></div>
+                <div class="x-card x-proc"><p class="x-proc__num">02</p><h3>Design</h3><p>We turn ideas into clear, creative direction that feels right.</p><svg class="x-ic"><use href="#i-pencil"/></svg></div>
+                <div class="x-card x-proc"><p class="x-proc__num">03</p><h3>Deliver</h3><p>We craft, refine and launch work that makes an impact.</p><svg class="x-ic"><use href="#i-plane"/></svg></div>
+              </div>
+            </section>
+
+            <section class="x-cta x-rv">
+              <div>
+                <h2 class="x-display">Let's create something bold together</h2>
+                <a class="x-talk" href="#contact">Let's Talk <span class="x-talk__dot"><svg class="x-ic"><use href="#i-arrow"/></svg></span></a>
+              </div>
+              <img class="x-cta__img" src="highfive.webp" alt="Two hands meeting in a high five" />
+              <p class="x-cta__copy">Good ideas start with a conversation. Tell us about your project, and let's make something great together.</p>
+            </section>
+
+            <footer class="x-foot">
+              <div class="x-foot__top">
+                <a class="x-logo" href="#home">TWO 26</a>
+                <nav class="x-foot__links" aria-label="Footer">
+                  <a href="#home/work">Work</a><a href="#studio">About us</a><a href="#home/services">Services</a><a href="#contact">Contact</a>
+                </nav>
+                <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+                  <a class="x-foot__mail" href="mailto:hello@two26.studio">hello@two26.studio</a>
+                  <div class="x-social">
+                    <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><svg class="x-ic"><use href="#i-ig"/></svg></a>
+                    <a href="https://behance.net" target="_blank" rel="noopener" aria-label="Behance">Bē</a>
+                    <a href="https://dribbble.com" target="_blank" rel="noopener" aria-label="Dribbble"><svg class="x-ic"><use href="#i-dribbble"/></svg></a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+                  </div>
+                </div>
+              </div>
+              <div class="x-foot__bottom"><p>© 2024 TWO 26. All rights reserved.</p><p>Independent design studio for a brighter tomorrow.</p></div>
+            </footer>
+          </div>
+          <!-- ================= STUDIO ================= -->
+          <div class="x-view" data-view="studio" id="view-studio">
+            <section class="x-hero x-hero--studio">
+              <svg class="x-curl" viewBox="0 0 120 110" aria-hidden="true"><path d="M120 6C70 4 40 30 48 62c6 26 40 28 44 6 3-16-14-24-24-14" stroke-width="12"/></svg>
+              <svg class="x-swirl" viewBox="0 0 300 500" aria-hidden="true"><path d="M310 40C170 30 60 120 70 250c10 120 160 150 205 55 32-70-30-130-90-100-48 24-30 95 20 85" stroke-width="30"/></svg>
+              <div class="x-hero__inner">
+                <h1 class="x-display">
+                  <span class="x-ln x-ln--1"><span style="--d:.05s">The committed,</span></span>
+                  <span class="x-ln"><span style="--d:.18s">Agile and creative</span></span>
+                  <span class="x-ln"><span style="--d:.31s">Duo</span></span>
+                  <span class="x-tag x-tag--studio">design studio</span>
+                  <span class="x-tag x-tag--indie">Independent</span>
+                </h1>
+                <div class="x-hero__foot">
+                  <img class="x-hero__art" src="hero-duo.webp" alt="Line drawing of two designers standing back to back" />
+                  <div class="x-hero__copy x-stagger">
+                    <p>We partner with people that believe better design is one of the most crucial.</p>
+                    <p>We partner with people that believe better design is one of the most crucial element towards progress.</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <div class="x-flow x-studio-flow">
+              <svg class="x-ribbon" viewBox="0 0 1200 1100" aria-hidden="true"><path class="x-rib" pathLength="1" stroke-width="60" d="M600 0C600 220 1010 230 990 430 970 620 300 520 220 740 170 880 250 980 330 1040"/></svg>
+              <section class="x-story x-rv">
+                <img class="x-story__img" src="chairs.webp" alt="Three orange and white office chairs" />
+                <div>
+                  <p class="x-eyebrow">Our story</p>
+                  <h2 class="x-h2">We do what we do because we want to help brands with a genuine mission to succeed.</h2>
+                  <p class="x-body">Staying small was never an accident. It's a deliberate choice. It means we stay closely involved in every project, and we maintain a level of care that gets harder to hold onto the bigger a studio gets.</p>
+                </div>
+              </section>
+            </div>
+
+            <section class="x-sec">
+              <div class="x-sec__row x-rv"><p class="x-label">Our process</p></div>
+              <div class="x-grid3 x-rv">
+                <div class="x-card x-proc"><p class="x-proc__num">01</p><h3>Discover</h3><p>We listen, ask the right questions and uncover what really matters.</p><svg class="x-ic"><use href="#i-search"/></svg></div>
+                <div class="x-card x-proc"><p class="x-proc__num">02</p><h3>Design</h3><p>We turn ideas into clear, creative direction that feels right.</p><svg class="x-ic"><use href="#i-pencil"/></svg></div>
+                <div class="x-card x-proc"><p class="x-proc__num">03</p><h3>Deliver</h3><p>We craft, refine and launch work that makes an impact.</p><svg class="x-ic"><use href="#i-plane"/></svg></div>
+              </div>
+            </section>
+
+            <section class="x-cta x-rv">
+              <div>
+                <h2 class="x-display">Let's create something bold together</h2>
+                <a class="x-talk" href="#contact">Let's Talk <span class="x-talk__dot"><svg class="x-ic"><use href="#i-arrow"/></svg></span></a>
+              </div>
+              <img class="x-cta__img" src="highfive.webp" alt="Two hands meeting in a high five" />
+              <p class="x-cta__copy">Good ideas start with a conversation. Tell us about your project, and let's make something great together.</p>
+            </section>
+
+            <footer class="x-foot">
+              <div class="x-foot__top">
+                <a class="x-logo" href="#home">TWO 26</a>
+                <nav class="x-foot__links" aria-label="Footer">
+                  <a href="#home/work">Work</a><a href="#studio">About us</a><a href="#home/services">Services</a><a href="#contact">Contact</a>
+                </nav>
+                <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+                  <a class="x-foot__mail" href="mailto:hello@two26.studio">hello@two26.studio</a>
+                  <div class="x-social">
+                    <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><svg class="x-ic"><use href="#i-ig"/></svg></a>
+                    <a href="https://behance.net" target="_blank" rel="noopener" aria-label="Behance">Bē</a>
+                    <a href="https://dribbble.com" target="_blank" rel="noopener" aria-label="Dribbble"><svg class="x-ic"><use href="#i-dribbble"/></svg></a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+                  </div>
+                </div>
+              </div>
+              <div class="x-foot__bottom"><p>© 2024 TWO 26. All rights reserved.</p><p>Independent design studio for a brighter tomorrow.</p></div>
+            </footer>
+          </div>
+          <!-- ================= WORK / BREW CREW ================= -->
+          <div class="x-view" data-view="work" id="view-work">
+            <section class="x-phero">
+              <div class="x-phero__copy">
+                <a class="x-backlink" href="#home/work"><svg class="x-ic"><use href="#i-back"/></svg> Back to Work</a>
+                <p class="x-eyebrow">Branding &amp; Digital</p>
+                <h1 class="x-display x-phero__title"><span class="x-ln"><span style="--d:.05s">Brew Crew</span></span></h1>
+                <p class="x-phero__sub">Branding for a generation on the go.</p>
+                <p class="x-phero__body">Brew Crew is a modern coffee brand built for creatives, dreamers, and go-getters. We created a bold, energetic brand identity and digital assets that capture their mission: great coffee, real people, anywhere.</p>
+                <dl class="x-meta">
+                  <div><svg class="x-ic"><use href="#i-cal"/></svg><dt>Year</dt><dd>2024</dd></div>
+                  <div><svg class="x-ic"><use href="#i-doc"/></svg><dt>Services</dt><dd>Branding, Web Design, Illustration, Motion</dd></div>
+                  <div><svg class="x-ic"><use href="#i-user"/></svg><dt>Client</dt><dd>Brew Crew</dd></div>
+                </dl>
+              </div>
+              <div class="x-phero__art"><img src="brew-hero.webp" alt="Brew Crew illustration: two people in orange jackets holding coffee under the words Good coffee, better days" /></div>
+            </section>
+
+            <section class="x-overview x-rv">
+              <img class="x-overview__img" src="brew-cup.webp" alt="Brew Crew coffee cup on orange" />
+              <div>
+                <p class="x-eyebrow">Project overview</p>
+                <h2 class="x-h2">More than coffee. It's a movement.</h2>
+                <p class="x-overview__p">Brew Crew exists to fuel the creative spirit. We developed a vibrant brand identity, custom illustration style, and a responsive website that feels fresh, friendly, and full of energy — just like the people it's made for.</p>
+                <p class="x-overview__p">From the logo to the packaging, every touchpoint was designed to feel approachable, authentic, and ready for life on the go.</p>
+                <ul class="x-deliv">
+                  <li><span class="x-deliv__dot"><svg class="x-ic"><use href="#i-eyes"/></svg></span><div><b>Brand Identity</b><span>Logo, Color, Typography</span></div></li>
+                  <li><span class="x-deliv__dot"><svg class="x-ic"><use href="#i-laptop"/></svg></span><div><b>Web Design</b><span>Responsive Site</span></div></li>
+                  <li><span class="x-deliv__dot"><svg class="x-ic"><use href="#i-pencil"/></svg></span><div><b>Illustration</b><span>Character &amp; Scene Art</span></div></li>
+                </ul>
+              </div>
+              <aside class="x-brand">
+                <p class="x-eyebrow">Brand details</p>
+                <div class="x-brand__id">
+                  <div class="x-appicon">
+                    <svg viewBox="0 0 110 110" aria-hidden="true">
+                      <rect width="110" height="110" rx="26" fill="#FF4D00"/>
+                      <path d="M38 30v50M38 30h18c11 0 17 5 17 12s-6 12-17 12H38M38 54h20c12 0 19 5 19 13s-7 13-19 13H38" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M80 30c6-6 12-4 14 1" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+                    </svg>
+                    <svg class="x-appicon__burst" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-burst"/></svg>
+                  </div>
+                  <div><p class="x-brand__name">Brew Crew</p><p class="x-brand__kw">Coffee / Lifestyle / Community</p></div>
+                </div>
+                <ul class="x-swatches" aria-label="Brand colors">
+                  <li style="background:#FF4D00" title="#FF4D00"><span>#FF4D00</span></li>
+                  <li style="background:#111111" title="#111111"><span>#111111</span></li>
+                  <li style="background:#F6EEE6" title="#F6EEE6"><span>#F6EEE6</span></li>
+                  <li style="background:#E8D3B5" title="#E8D3B5"><span>#E8D3B5</span></li>
+                </ul>
+                <p class="x-eyebrow">Typography</p>
+                <div class="x-type"><span class="x-type__aa">Aa</span><div><b>Montserrat</b><span>Bold / Semibold / Regular</span></div></div>
+                <p class="x-eyebrow">Brand vibe</p>
+                <ul class="x-vibe"><li>Energetic</li><li>Friendly</li><li>Authentic</li><li>Modern</li></ul>
+              </aside>
+            </section>
+
+            <section class="x-related x-rv">
+              <div class="x-sec__row">
+                <p class="x-eyebrow" style="margin:0">Related work</p>
+                <a class="x-more" href="#home/work" aria-label="All work"><svg class="x-ic"><use href="#i-arrow"/></svg></a>
+              </div>
+              <div class="x-grid4">
+                <a class="x-rcard" href="#studio"><span class="x-rcard__thumb" style="background:#FF4D00"><img src="hero-duo.webp" alt="" /></span><span><b>The Committed Duo</b><small>Campaign &amp; Illustration</small><em>View project <svg class="x-ic"><use href="#i-arrow"/></svg></em></span></a>
+                <a class="x-rcard" href="#home/work"><span class="x-rcard__thumb" style="background:#F6E8DF"><img src="card-momo.webp" alt="" /></span><span><b>Momo</b><small>Web Design</small><em>View project <svg class="x-ic"><use href="#i-arrow"/></svg></em></span></a>
+                <a class="x-rcard" href="#home/work"><span class="x-rcard__thumb"><img class="x-cover" src="card-playground.webp" alt="" /></span><span><b>Playground</b><small>Illustration</small><em>View project <svg class="x-ic"><use href="#i-arrow"/></svg></em></span></a>
+                <a class="x-rcard" href="#home/work"><span class="x-rcard__thumb"><img class="x-cover" src="card-studiogrid.webp" alt="" /></span><span><b>Studio Grid</b><small>Branding</small><em>View project <svg class="x-ic"><use href="#i-arrow"/></svg></em></span></a>
+              </div>
+            </section>
+
+            <footer class="x-pfoot">
+              <div class="x-pfoot__brand"><a class="x-logo" href="#home">TWO 26</a><p>Crafting brands that move people.</p></div>
+              <nav class="x-pfoot__nav" aria-label="Projects">
+                <a href="#studio">‹ Previous</a>
+                <a href="#home/work" aria-label="All projects"><svg class="x-ic"><use href="#i-dots"/></svg></a>
+                <a href="#home/work">Next ›</a>
+                <span class="x-pfoot__div"></span>
+                <a class="x-more" href="#home/work">View all work <svg class="x-ic"><use href="#i-arrow"/></svg></a>
+              </nav>
+            </footer>
+          </div>
+          <!-- ================= CONTACT ================= -->
+          <div class="x-view" data-view="contact" id="view-contact">
+            <section class="x-contact">
+              <div class="x-contact__intro">
+                <div class="x-git">
+                  <h1 class="x-display x-git__title">
+                    <span class="x-ln"><span style="--d:.05s">Get in</span></span>
+                    <span class="x-ln"><span style="--d:.18s">Touch</span></span>
+                  </h1>
+                  <div class="x-bubble"><p>Let's create something bold.</p></div>
+                  <svg class="x-git__burst" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-burst"/></svg>
+                </div>
+                <p class="x-contact__lead">Have a project in mind, a question, or just want to say hi? We'd love to hear from you.</p>
+                <p class="x-contact__p">Whether you're ready to start, need a quote, or just want to talk through an idea — drop us a message and we'll get back to you as soon as possible.</p>
+                <div class="x-contact__art">
+                  <svg class="x-squig" viewBox="0 0 600 420" aria-hidden="true">
+                    <path class="x-rib" pathLength="1" stroke-width="34" d="M20 330C60 230 140 360 170 260 200 160 90 120 150 60"/>
+                    <path class="x-rib" pathLength="1" stroke-width="34" d="M590 120C520 140 560 230 500 270 440 310 470 380 560 400"/>
+                  </svg>
+                  <img src="contact-duo.webp" alt="Two designers with a laptop and a TWO 26 coffee cup" />
+                </div>
+              </div>
+
+              <div class="x-card x-formcard x-rv">
+                <p class="x-label">Send us a message</p>
+                <h2 class="x-display x-formcard__title">Let's talk about your idea</h2>
+                <p class="x-formcard__p">Tell us a bit about your project, and we'll get back to you within one business day.</p>
+                <form class="x-form" id="x-form" novalidate>
+                  <div class="x-field">
+                    <label for="f-name">Your name *</label>
+                    <input id="f-name" name="name" type="text" autocomplete="name" required />
+                    <p class="x-err" id="e-name"></p>
+                  </div>
+                  <div class="x-field">
+                    <label for="f-email">Your email *</label>
+                    <input id="f-email" name="email" type="email" autocomplete="email" required />
+                    <p class="x-err" id="e-email"></p>
+                  </div>
+                  <div class="x-field">
+                    <label for="f-topic">What are you interested in? *</label>
+                    <select id="f-topic" name="topic" required>
+                      <option value="">Choose one</option>
+                      <option>Brand Strategy</option>
+                      <option>Web &amp; Digital</option>
+                      <option>Design &amp; Identity</option>
+                      <option>Campaigns &amp; Content</option>
+                      <option>Something else</option>
+                    </select>
+                    <p class="x-err" id="e-topic"></p>
+                  </div>
+                  <div class="x-field">
+                    <label for="f-msg">Tell us about your project *</label>
+                    <textarea id="f-msg" name="message" rows="5" required></textarea>
+                    <p class="x-err" id="e-msg"></p>
+                  </div>
+                  <button class="x-send" type="submit">Send Message <span class="x-send__dot"><svg class="x-ic"><use href="#i-arrow"/></svg></span></button>
+                </form>
+                <div class="x-thanks" id="x-thanks" hidden tabindex="-1">
+                  <span class="x-thanks__icon"><svg class="x-ic"><use href="#i-check"/></svg></span>
+                  <p>Thanks! We'll get back to you within one business day.</p>
+                </div>
+              </div>
+
+              <div class="x-contact__side x-rv">
+                <div class="x-card x-info">
+                  <p class="x-label">Studio contact</p>
+                  <ul>
+                    <li><svg class="x-ic"><use href="#i-pin"/></svg><span>TWO 26 Studio<br />123 Creative Way<br />Melbourne, VIC 3000<br />Australia</span></li>
+                    <li><svg class="x-ic"><use href="#i-mail"/></svg><a href="mailto:hello@two26.studio">hello@two26.studio</a></li>
+                    <li><svg class="x-ic"><use href="#i-phone"/></svg><a href="tel:+61398764321">+61 3 9876 4321</a></li>
+                  </ul>
+                </div>
+                <div class="x-card x-info">
+                  <p class="x-label">Business hours</p>
+                  <ul>
+                    <li><svg class="x-ic"><use href="#i-clock"/></svg><span><b>Monday – Friday</b><br />10:00 – 17:00<br /><small>We're usually in the studio, but feel free to send us an email anytime.</small></span></li>
+                  </ul>
+                </div>
+                <div class="x-soon">
+                  <svg class="x-ic x-soon__m"><use href="#i-m"/></svg>
+                  <p>We'll get back to you soon!</p>
+                  <svg class="x-soon__burst" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-burst"/></svg>
+                </div>
+              </div>
+            </section>
+
+            <section class="x-card x-strip x-rv">
+              <div><svg class="x-ic"><use href="#i-bulb"/></svg><h3>Brand Strategy</h3><p>Find your focus with creative direction.</p></div>
+              <div><svg class="x-ic"><use href="#i-laptop"/></svg><h3>Web &amp; Digital</h3><p>Modern websites, built for what's next.</p></div>
+              <div><svg class="x-ic"><use href="#i-tag"/></svg><h3>Design &amp; Identity</h3><p>Bold visual identities that stand out.</p></div>
+              <div><svg class="x-ic"><use href="#i-mega"/></svg><h3>Campaigns &amp; Content</h3><p>Ideas, stories and content that make an impact.</p></div>
+            </section>
+
+            <footer class="x-band x-rv">
+              <p class="x-display x-band__logo">TWO 26</p>
+              <span class="x-band__div"></span>
+              <p class="x-band__tag">Bold ideas.<br />Real people.<br />Lasting impact.</p>
+              <div class="x-band__right">
+                <span class="x-band__talk">
+                  <svg class="x-band__burst" viewBox="0 0 40 40" aria-hidden="true"><use href="#i-burst"/></svg>
+                  <a class="x-talk" href="#contact" data-scroll-form>Let's Talk <span class="x-talk__dot"><svg class="x-ic"><use href="#i-arrow"/></svg></span></a>
+                </span>
+                <div class="x-social">
+                  <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><svg class="x-ic"><use href="#i-ig"/></svg></a>
+                  <a href="https://behance.net" target="_blank" rel="noopener" aria-label="Behance">Bē</a>
+                  <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+                </div>
+              </div>
+            </footer>
+          </div>
+        </main>
+      </div>
+
+      <div class="x-menu" id="x-menu" role="dialog" aria-modal="true" aria-label="Menu">
+        <div class="x-menu__top">
+          <a class="x-logo" href="#home">TWO 26</a>
+          <button class="x-menu__close" type="button" aria-label="Close menu" data-menu-close>×</button>
+        </div>
+        <nav aria-label="Mobile">
+          <a href="#home/work">Work</a>
+          <a href="#studio">About us</a>
+          <a href="#home/services">Services</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <p class="x-hours">Monday–Friday<br />10:00 – 17:00</p>
+        <a class="x-talk" href="#contact" style="align-self:flex-start">Let's Talk <span class="x-talk__dot"><svg class="x-ic"><use href="#i-arrow"/></svg></span></a>
+      </div>
+    </div>
+    <script src="hark.js"></script>
+    <script>
+      (function () {
+        var doc = document, root = doc.documentElement;
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var views = {};
+        [].slice.call(doc.querySelectorAll(".x-view")).forEach(function (v) { views[v.getAttribute("data-view")] = v; });
+        var titles = { home: "TWO 26 Creative Studio", studio: "The Studio · TWO 26", work: "Brew Crew · TWO 26", contact: "Contact · TWO 26" };
+        var current = null, timer = null;
+
+        function parse(h) {
+          var parts = (h || "").replace(/^#/, "").split("/");
+          if (parts[0] === "work") return { view: "work" };
+          if (parts[0] === "studio") return { view: "studio" };
+          if (parts[0] === "contact") return { view: "contact" };
+          return { view: "home", target: parts[1] === "work" ? "x-work" : parts[1] === "services" ? "x-services" : null };
+        }
+        function jumpTop() {
+          var prev = root.style.scrollBehavior;
+          root.style.scrollBehavior = "auto";
+          window.scrollTo(0, 0);
+          root.style.scrollBehavior = prev;
+        }
+        function headerH() {
+          var h = [].slice.call(doc.querySelectorAll(".x-header")).filter(function (x) { return x.offsetParent !== null; })[0];
+          return h ? h.offsetHeight : 0;
+        }
+        function scrollToTarget(id) {
+          var el = doc.getElementById(id);
+          if (!el) return;
+          var y = el.getBoundingClientRect().top + window.pageYOffset - headerH() - 8;
+          window.scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" });
+        }
+
+        // reveal on scroll
+        var io = "IntersectionObserver" in window ? new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-vis"); io.unobserve(e.target); } });
+        }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }) : null;
+        function observe(v) {
+          [].slice.call(v.querySelectorAll(".x-rv:not(.is-vis)")).forEach(function (el) { if (io) io.observe(el); else el.classList.add("is-vis"); });
+        }
+
+        // ribbons draw with scroll progress
+        var ticking = false;
+        function drawRibbons() {
+          ticking = false;
+          if (!current) return;
+          var vh = window.innerHeight;
+          [].slice.call(current.querySelectorAll(".x-rib")).forEach(function (p) {
+            if (reduce) { p.style.strokeDashoffset = 0; return; }
+            var r = p.ownerSVGElement.getBoundingClientRect();
+            var prog = (vh * 0.8 - r.top) / Math.max(r.height * 0.85, 1);
+            prog = Math.max(0, Math.min(1, prog));
+            p.style.strokeDashoffset = 1 - prog;
+          });
+        }
+        function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(drawRibbons); } }
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll);
+
+        function enter(v, target) {
+          current = v;
+          v.classList.add("is-shown");
+          doc.body.setAttribute("data-view", v.getAttribute("data-view"));
+          doc.title = titles[v.getAttribute("data-view")] || titles.home;
+          jumpTop();
+          v.classList.remove("is-in");
+          void v.offsetWidth;
+          requestAnimationFrame(function () {
+            v.classList.add("is-visible", "is-in");
+            observe(v);
+            onScroll();
+          });
+          if (target) setTimeout(function () { scrollToTarget(target); }, reduce ? 0 : 160);
+        }
+        function route() {
+          closeMenu();
+          var r = parse(location.hash), v = views[r.view];
+          if (v === current && !timer) {
+            if (r.target) scrollToTarget(r.target);
+            else window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+            return;
+          }
+          if (timer) { clearTimeout(timer); timer = null; }
+          var leaving = current;
+          if (!leaving || reduce) {
+            Object.keys(views).forEach(function (k) { views[k].classList.remove("is-shown", "is-visible", "is-in"); });
+            enter(v, r.target);
+            return;
+          }
+          leaving.classList.remove("is-visible");
+          timer = setTimeout(function () {
+            timer = null;
+            Object.keys(views).forEach(function (k) { if (views[k] !== v) views[k].classList.remove("is-shown", "is-visible", "is-in"); });
+            enter(v, r.target);
+          }, 320);
+        }
+        window.addEventListener("hashchange", route);
+
+        // menu
+        var menu = doc.getElementById("x-menu"), opener = null;
+        function openMenu(btn) {
+          opener = btn;
+          menu.classList.add("is-open");
+          doc.body.style.overflow = "hidden";
+          [].slice.call(doc.querySelectorAll("[data-menu-open]")).forEach(function (b) { b.setAttribute("aria-expanded", "true"); });
+          menu.querySelector("[data-menu-close]").focus();
+        }
+        function closeMenu() {
+          if (!menu.classList.contains("is-open")) return;
+          menu.classList.remove("is-open");
+          doc.body.style.overflow = "";
+          [].slice.call(doc.querySelectorAll("[data-menu-open]")).forEach(function (b) { b.setAttribute("aria-expanded", "false"); });
+          if (opener) opener.focus();
+        }
+        [].slice.call(doc.querySelectorAll("[data-menu-open]")).forEach(function (b) { b.addEventListener("click", function () { openMenu(b); }); });
+        menu.querySelector("[data-menu-close]").addEventListener("click", closeMenu);
+        [].slice.call(menu.querySelectorAll("a")).forEach(function (a) { a.addEventListener("click", function () { setTimeout(closeMenu, 0); }); });
+        doc.addEventListener("keydown", function (e) { if (e.key === "Escape") closeMenu(); });
+
+        // contact form
+        var form = doc.getElementById("x-form"), tried = false;
+        var rules = [
+          { id: "f-name", err: "e-name", test: function (v) { return v.trim() ? "" : "Please tell us your name."; } },
+          { id: "f-email", err: "e-email", test: function (v) { return !v.trim() ? "Please add your email." : /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? "" : "That email doesn't look right."; } },
+          { id: "f-topic", err: "e-topic", test: function (v) { return v ? "" : "Please choose what you're interested in."; } },
+          { id: "f-msg", err: "e-msg", test: function (v) { return v.trim() ? "" : "Please tell us a little about your project."; } }
+        ];
+        function check(rule) {
+          var el = doc.getElementById(rule.id), msg = rule.test(el.value);
+          doc.getElementById(rule.err).textContent = msg;
+          el.setAttribute("aria-invalid", msg ? "true" : "false");
+          if (msg) el.setAttribute("aria-describedby", rule.err); else el.removeAttribute("aria-describedby");
+          return !msg;
+        }
+        rules.forEach(function (rule) {
+          var el = doc.getElementById(rule.id);
+          el.addEventListener(el.tagName === "SELECT" ? "change" : "input", function () { if (tried) check(rule); });
+          el.addEventListener("blur", function () { if (tried) check(rule); });
+        });
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          tried = true;
+          var firstBad = null;
+          rules.forEach(function (rule) { if (!check(rule) && !firstBad) firstBad = doc.getElementById(rule.id); });
+          if (firstBad) { firstBad.focus(); return; }
+          form.hidden = true;
+          var t = doc.getElementById("x-thanks");
+          t.hidden = false;
+          t.focus();
+        });
+
+        route();
+      })();
+    </script>
+  </body>
+</html>
